@@ -14,3 +14,7 @@ target_include_directories(hal_host
   PUBLIC
   "inc/"
 )
+
+if (${DISASSEMBLE_LIBRARIES})
+  disassemble_target(hal_host)
+endif()

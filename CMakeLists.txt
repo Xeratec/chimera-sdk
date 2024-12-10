@@ -32,6 +32,7 @@ project(chimera-sdk LANGUAGES C ASM)
 set(ABI ilp32)
 set(ISA_CLUSTER_SNITCH rv32im)
 set(ISA_HOST rv32imc)
+set(DISASSEMBLE_LIBRARIES CACHE BOOL OFF)
 
 message(STATUS "[CHIMERA-SDK] ABI                   : ${ABI}")
 message(STATUS "[CHIMERA-SDK] ISA_HOST              : ${ISA_HOST}")
@@ -64,3 +65,16 @@ add_subdirectory(drivers)
 enable_testing()
 
 add_subdirectory(tests)
+
+################################################################################
+# Debugging Options                                                            #
+################################################################################
+
+if (${DISASSEMBLE_LIBRARIES})
+  # Automatically disassemble the host runtime
+  disassemble_target(runtime_host)
+  # WIEESP: Automatically disassemble the cluster runtime
+  disassemble_target(runtime_cluster_snitch)
+endif()
+
+
