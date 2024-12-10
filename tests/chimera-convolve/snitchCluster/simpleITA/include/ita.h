@@ -8,7 +8,6 @@
 #define _ITA_INCLUDE_GUARD_
 
 #include "soc.h"
-#include "driver.h"
 #include "cluster_4.h"
 
 #include <stdint.h>
