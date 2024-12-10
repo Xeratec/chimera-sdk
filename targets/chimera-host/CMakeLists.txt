@@ -36,6 +36,8 @@ target_include_directories(runtime_host
 target_compile_options(runtime_host
   PRIVATE
   -O2
+  -ffunction-sections
+  -fdata-sections
 )
 
 target_compile_options(runtime_host
