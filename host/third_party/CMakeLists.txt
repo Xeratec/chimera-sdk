@@ -3,6 +3,7 @@
 
 # Define mappings for drivers
 set(THIRDPARTY_MAPPINGS
+    chimera-mxita:opentitan
     chimera-convolve:opentitan
     chimera-open:opentitan
     chimera-host:opentitan

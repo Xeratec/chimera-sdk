@@ -1,0 +1,8 @@
+# SPDX-FileCopyrightText: 2025 ETH Zurich and University of Bologna
+# SPDX-License-Identifier: Apache-2.0
+
+# Add test for host core
+# add_subdirectory(host)
+
+# Add test for snitchCluster
+add_subdirectory(snitchCluster)

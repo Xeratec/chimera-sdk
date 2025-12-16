@@ -4,6 +4,15 @@
 # Define mappings for tests
 set(TEST_MAPPINGS
 [[
+chimera-mxita:
+  chimera-mxita,
+  host/alloc,
+  host/picolibc,
+  host/printf,
+  host/returnZero,
+  host/uartSimple,
+]]
+[[
 chimera-convolve:
   chimera-convolve,
   host/alloc,
