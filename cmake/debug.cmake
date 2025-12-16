@@ -15,3 +15,5 @@ add_compile_options(
 # Enable verbose output for the makefile
 # set(CMAKE_VERBOSE_MAKEFILE TRUE)
 
+add_compile_options("-DTRACE")
+
