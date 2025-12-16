@@ -32,24 +32,13 @@
  *  %0: Base address of the busy register for cluster 0
  *  %1: Threshold for cluster 1
  *  %2: Threshold for cluster 2
- *  %3: Threshold for cluster 3
- *  %4: Threshold for cluster 4
  */
 #define __CLUSTER_ID_ASM \
     "csrr t0, mhartid\n" /* t0 = mhartid */ \
     "li t1, 0\n"         /* t1 = cluster_id = 0 */ \
     "sltu t3, t0, %1\n"  /* t3 = (t0 < thresh1) ? 1 : 0 */ \
     "xori t3, t3, 1\n"   /* t3 = (t0 >= thresh1) ? 1 : 0 */ \
-    "add t1, t1, t3\n"   /* t1 += t3 (cluster_id = 1) */ \
-    "sltu t3, t0, %2\n"  /* t3 = (t0 < thresh2) ? 1 : 0 */ \
-    "xori t3, t3, 1\n"   /* t3 = (t0 >= thresh2) ? 1 : 0 */ \
-    "add t1, t1, t3\n"   /* t1 += t3 (cluster_id = 2) */ \
-    "sltu t3, t0, %3\n"  /* t3 = (t0 < thresh3) ? 1 : 0 */ \
-    "xori t3, t3, 1\n"   /* t3 = (t0 >= thresh3) ? 1 : 0 */ \
-    "add t1, t1, t3\n"   /* t1 += t3 (cluster_id = 3) */ \
-    "sltu t3, t0, %4\n"  /* t3 = (t0 < thresh4) ? 1 : 0 */ \
-    "xori t3, t3, 1\n"   /* t3 = (t0 >= thresh4) ? 1 : 0 */ \
-    "add t1, t1, t3\n"   /* t1 += t3 (cluster_id = 4) */
+    "add t1, t1, t3\n"   /* t1 += t3 (cluster_id = 1) */
 
 /**
  * @brief Compute cluster id form the hartid adn set busy flag.
@@ -59,17 +48,12 @@
 #define _SET_CLUSTER_BUSY() \
     asm volatile(__CLUSTER_ID_ASM "7: slli t1, t1, 2\n" /* t1 = cluster_id * 4 */ \
                                   "add t1, %0, t1\n"    /* t1 = base + cluster_id*4 */ \
-                                  "li t2, 1\n" \
-                                  "sw t2, 0(t1)\n" \
+                                  "li  t2, 1\n" \
+                                  "sw  t2, 0(t1)\n" \
                  : /* no outputs */ \
                  : "r"((uintptr_t)(SOC_CTRL_BASE + CHIMERA_CLUSTER_0_BUSY_REG_OFFSET)), \
-                   "r"((uintptr_t)(HOST_NUMCORES + CLUSTER_0_NUMCORES)), \
-                   "r"((uintptr_t)(HOST_NUMCORES + CLUSTER_0_NUMCORES + CLUSTER_1_NUMCORES)), \
-                   "r"((uintptr_t)(HOST_NUMCORES + CLUSTER_0_NUMCORES + CLUSTER_1_NUMCORES + \
-                                   CLUSTER_2_NUMCORES)), \
-                   "r"((uintptr_t)(HOST_NUMCORES + CLUSTER_0_NUMCORES + CLUSTER_1_NUMCORES + \
-                                   CLUSTER_2_NUMCORES + CLUSTER_3_NUMCORES)) \
-                 : "t0", "t1", "t2", "memory");
+                   "r"((uintptr_t)(HOST_NUMCORES + CLUSTER_0_NUMCORES)) \
+                 : "t0", "t1", "t2", "t3", "memory")
 
 /**
  * @brief Compute cluster id from `mhartid` and clear busy.
@@ -89,7 +73,7 @@
                                    CLUSTER_2_NUMCORES)), \
                    "r"((uintptr_t)(HOST_NUMCORES + CLUSTER_0_NUMCORES + CLUSTER_1_NUMCORES + \
                                    CLUSTER_2_NUMCORES + CLUSTER_3_NUMCORES)) \
-                 : "t0", "t1", "t2", "memory");
+                 : "t0", "t1", "t2", "t3", "memory");
 
 /** @} */
 
