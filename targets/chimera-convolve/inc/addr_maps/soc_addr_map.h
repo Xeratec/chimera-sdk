@@ -7,8 +7,8 @@
 #include <stdint.h>
 
 #define CLINT_CTRL_BASE 0x02040000
-
 #define SOC_CTRL_BASE 0x30001000
+#define HYPERBUS_CTRL_BASE 0x30005000
 
 #define CLUSTER_0_BASE 0x40000000
 #define CLUSTER_1_BASE 0x40200000
@@ -89,5 +89,7 @@ static const uint32_t _chimera_clusterL1LmaEnd[] = {
 #define CHIMERA_PADFRAME_STATIC_BASE_ADDRESS 0x30003000
 
 #define FLL_BASE_ADDR 0x30004000
+
+#define HYPERRAM_BASE_ADDR 0x50000000
 
 #endif
