@@ -28,25 +28,16 @@ file(GLOB_RECURSE C_SOURCES
     "${SNITCH_ROOT_DIR}/omp/src/omp.c"
 )
 
+set_property(GLOBAL APPEND PROPERTY CHIMERA_DEVICE_RUNTIME_SOURCES ${C_SOURCES})
 
-target_sources(runtime_cluster_snitch PRIVATE ${C_SOURCES})
-
-# Remove -Wundefined-inline warnings from snitch sources (only for these files)
-set_source_files_properties(
-    ${C_SOURCES}
-    PROPERTIES APPEND_STRING PROPERTY COMPILE_FLAGS "-Wno-undefined-inline"
-)
-
-target_include_directories(runtime_cluster_snitch
-    PUBLIC
+set_property(GLOBAL APPEND PROPERTY CHIMERA_DEVICE_RUNTIME_INCLUDES
     ${SN_DEPS_DIR}
     ${SNITCH_ROOT_DIR}/target/common/inc
     ${SNITCH_ROOT_DIR}/core/inc
     ${SNITCH_ROOT_DIR}/omp/inc
 )
 
-target_include_directories(runtime_cluster_snitch
-    PRIVATE
+set_property(GLOBAL APPEND PROPERTY CHIMERA_DEVICE_RUNTIME_PRIVATE_INCLUDES
     ${SNITCH_ROOT_DIR}/core/src
     ${SNITCH_ROOT_DIR}/omp/src
 )
