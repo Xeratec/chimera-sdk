@@ -126,9 +126,12 @@ SNRT_CLUSTER_L1_ZERO(int32_t *DeeployNetwork_output_0);
 
 /*
  * Accumulator for ops-per-cycle computed by each compute core and atomically
- * added to this shared float in .cdata.
+ * added to this shared value in .cdata. Kept as a fixed-point integer scaled by
+ * OPC_SCALE: the Snitch FPU has no div/sqrt unit (XDivSqrt=0), so the metric is
+ * computed with integer division to avoid emitting `fdiv`/`fsqrt`.
  */
-SNRT_CLUSTER_L1_COPY(static float ops_per_cycle) = 0.0f;
+#define OPC_SCALE 10000u
+SNRT_CLUSTER_L1_COPY(static uint32_t ops_per_cycle_scaled) = 0;
 
 /**
  *
@@ -187,16 +190,25 @@ KEEP int32_t testReturn(void *args __attribute__((unused))) {
      * per-core.
      */
     if (snrt_is_compute_core()) {
-        float ops = ((float)2 * 32 * 48 * 64) / snrt_cluster_compute_core_num(); // MACs
-        float ops_per_cycle_per_core = (float)ops / (float)(end_cycles - start_cycles);
-        printf("RQGemm ops/cycle/core = %.4f\n", ops_per_cycle_per_core);
+        // Total MACs split across the compute cores, as a fixed-point ratio
+        // scaled by OPC_SCALE. Uses integer division (M-extension) so no FP
+        // div/sqrt is emitted -- the Snitch FPU has no div/sqrt unit.
+        uint32_t const macs = 2u * 32 * 48 * 64;
+        uint32_t const ncores = snrt_cluster_compute_core_num();
+        uint32_t const cycles = end_cycles - start_cycles;
+        uint32_t opc_scaled =
+            (ncores && cycles)
+                ? (uint32_t)(((uint64_t)macs * OPC_SCALE) / ((uint64_t)ncores * cycles))
+                : 0;
+        printf("RQGemm ops/cycle/core = %u.%04u\n", opc_scaled / OPC_SCALE, opc_scaled % OPC_SCALE);
 
-        __atomic_add_fetch(&ops_per_cycle, ops_per_cycle_per_core, __ATOMIC_RELAXED);
+        __atomic_add_fetch(&ops_per_cycle_scaled, opc_scaled, __ATOMIC_RELAXED);
     }
     snrt_cluster_hw_barrier();
 
     if (snrt_cluster_core_idx() == 0) {
-        printf("Total ops/cycle = %.4f\n", ops_per_cycle);
+        printf("Total ops/cycle = %u.%04u\n", ops_per_cycle_scaled / OPC_SCALE,
+               ops_per_cycle_scaled % OPC_SCALE);
     }
     snrt_cluster_hw_barrier();
 
