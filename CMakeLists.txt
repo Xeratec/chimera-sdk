@@ -138,10 +138,9 @@ set(SOC_MODEL_BINARY "chim.bin" CACHE STRING "Path to the simulation binary")
 set(SIMULATION_BINARY ${SOC_MODEL_BINARY})
 set(PRELOAD_MODE "0" CACHE STRING "Preload mode for simulation")
 
-if(TEST_MODE STREQUAL "compile" OR TEST_MODE STREQUAL "simulation")
-  add_subdirectory(tests)
-endif()
-
+# Simulation test setup must run BEFORE add_subdirectory(tests): enable_testing()
+# has to be active for CTest files to be generated in the test subdirectories, and
+# PRELOAD_MODE_INT / SIMULATION_BINARY are referenced by each test's add_test().
 if(TEST_MODE STREQUAL "simulation")
   enable_testing()
 
@@ -158,4 +157,8 @@ if(TEST_MODE STREQUAL "simulation")
 
   message(STATUS "[CHIMERA-SDK] SoC Model Binary      : ${SOC_MODEL_BINARY}")
   message(STATUS "[CHIMERA-SDK] Preload Mode          : ${PRELOAD_MODE}")
+endif()
+
+if(TEST_MODE STREQUAL "compile" OR TEST_MODE STREQUAL "simulation")
+  add_subdirectory(tests)
 endif()

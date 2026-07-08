@@ -28,4 +28,8 @@ static const uint32_t _chimera_clusterBase[] = {0};
 #define CHIMERA_PADFRAME_BASE_ADDRESS 0x30002000
 #define FLL_BASE_ADDR 0x30003000
 
+// HyperBus controller + off-chip HyperRAM (same as chimera-open).
+#define HYPERBUS_CTRL_BASE 0x30005000
+#define HYPERRAM_BASE_ADDR 0x80000000
+
 #endif

@@ -38,7 +38,10 @@
  *
  * All allocated memory blocks are aligned to this boundary for optimal access performance.
  */
-#define ALLOC_ALIGNMENT 4
+// Must be at least the alignment of the largest MemoryBlock field (size_t / pointer
+// = 8 bytes on rv64/lp64d). A value of 4 leaves later blocks 4-byte aligned, so the
+// 64-bit `sd` of the block header faults with Store-Address-Misaligned on CVA6.
+#define ALLOC_ALIGNMENT 8
 
 /**
  * @brief Macro to align a size to the memory alignment boundary.

@@ -23,3 +23,5 @@ toolchain
 
 # Claude
 .claude/
+
+.cache/

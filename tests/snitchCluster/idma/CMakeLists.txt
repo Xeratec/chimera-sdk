@@ -1,7 +1,7 @@
 # SPDX-FileCopyrightText: 2024 ETH Zurich and University of Bologna
 # SPDX-License-Identifier: Apache-2.0
 
-set(TEST_NAME test_snitchCluster_hyperbus)
+set(TEST_NAME test_snitchCluster_idma)
 
 ######## Source files ###########################################################
 file(GLOB_RECURSE TEST_HOST_SRCS    "src_host/*.c")
@@ -38,7 +38,6 @@ add_host_binary(${TEST_NAME}
 )
 target_include_directories(${TEST_NAME}_host.elf PRIVATE include)
 target_compile_options(${TEST_NAME}_host.elf PRIVATE -O2 -ffunction-sections -fdata-sections)
-# target_link_options(${TEST_NAME}_host.elf PRIVATE -Wl,--gc-sections)
 
 ######## Simulation ############################################################
 if(TEST_MODE STREQUAL "simulation")

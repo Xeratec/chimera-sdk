@@ -32,117 +32,135 @@
 #ifdef __cplusplus
 extern "C" {
 #endif
-
-/** @brief Register width in bits. */
+// Register width
 #define CHESHIRE_PARAM_REG_WIDTH 32
 
-/** @name Scratch Registers
- *  @brief General-purpose software-accessible registers.
- *  @{
- */
-#define CHESHIRE_SCRATCH_SCRATCH_FIELD_WIDTH 32   /**< Field width of scratch registers. */
-#define CHESHIRE_SCRATCH_SCRATCH_FIELDS_PER_REG 1 /**< Number of fields per register. */
-#define CHESHIRE_SCRATCH_MULTIREG_COUNT 16        /**< Number of multi-registers. */
+// Registers for use by software (common parameters)
+#define CHESHIRE_SCRATCH_SCRATCH_FIELD_WIDTH 32
+#define CHESHIRE_SCRATCH_SCRATCH_FIELDS_PER_REG 1
+#define CHESHIRE_SCRATCH_MULTIREG_COUNT 16
 
-#define CHESHIRE_SCRATCH_0_REG_OFFSET 0x0   /**< Offset for scratch register 0. */
-#define CHESHIRE_SCRATCH_1_REG_OFFSET 0x4   /**< Offset for scratch register 1. */
-#define CHESHIRE_SCRATCH_2_REG_OFFSET 0x8   /**< Offset for scratch register 2. */
-#define CHESHIRE_SCRATCH_3_REG_OFFSET 0xc   /**< Offset for scratch register 3. */
-#define CHESHIRE_SCRATCH_4_REG_OFFSET 0x10  /**< Offset for scratch register 4. */
-#define CHESHIRE_SCRATCH_5_REG_OFFSET 0x14  /**< Offset for scratch register 5. */
-#define CHESHIRE_SCRATCH_6_REG_OFFSET 0x18  /**< Offset for scratch register 6. */
-#define CHESHIRE_SCRATCH_7_REG_OFFSET 0x1c  /**< Offset for scratch register 7. */
-#define CHESHIRE_SCRATCH_8_REG_OFFSET 0x20  /**< Offset for scratch register 8. */
-#define CHESHIRE_SCRATCH_9_REG_OFFSET 0x24  /**< Offset for scratch register 9. */
-#define CHESHIRE_SCRATCH_10_REG_OFFSET 0x28 /**< Offset for scratch register 10. */
-#define CHESHIRE_SCRATCH_11_REG_OFFSET 0x2c /**< Offset for scratch register 11. */
-#define CHESHIRE_SCRATCH_12_REG_OFFSET 0x30 /**< Offset for scratch register 12. */
-#define CHESHIRE_SCRATCH_13_REG_OFFSET 0x34 /**< Offset for scratch register 13. */
-#define CHESHIRE_SCRATCH_14_REG_OFFSET 0x38 /**< Offset for scratch register 14. */
-#define CHESHIRE_SCRATCH_15_REG_OFFSET 0x3c /**< Offset for scratch register 15. */
-/** @} */
+// Registers for use by software
+#define CHESHIRE_SCRATCH_0_REG_OFFSET 0x0
 
-/** @name Boot Mode Register
- *  @brief Defines how boot code is loaded.
- *  @{
- */
-#define CHESHIRE_BOOT_MODE_REG_OFFSET 0x40 /**< Offset for boot mode register. */
+// Registers for use by software
+#define CHESHIRE_SCRATCH_1_REG_OFFSET 0x4
 
-#define CHESHIRE_BOOT_MODE_BOOT_MODE_MASK 0x3 /**< Mask for boot mode selection. */
-#define CHESHIRE_BOOT_MODE_BOOT_MODE_OFFSET 0 /**< Offset for boot mode field. */
+// Registers for use by software
+#define CHESHIRE_SCRATCH_2_REG_OFFSET 0x8
+
+// Registers for use by software
+#define CHESHIRE_SCRATCH_3_REG_OFFSET 0xc
+
+// Registers for use by software
+#define CHESHIRE_SCRATCH_4_REG_OFFSET 0x10
+
+// Registers for use by software
+#define CHESHIRE_SCRATCH_5_REG_OFFSET 0x14
+
+// Registers for use by software
+#define CHESHIRE_SCRATCH_6_REG_OFFSET 0x18
+
+// Registers for use by software
+#define CHESHIRE_SCRATCH_7_REG_OFFSET 0x1c
+
+// Registers for use by software
+#define CHESHIRE_SCRATCH_8_REG_OFFSET 0x20
+
+// Registers for use by software
+#define CHESHIRE_SCRATCH_9_REG_OFFSET 0x24
+
+// Registers for use by software
+#define CHESHIRE_SCRATCH_10_REG_OFFSET 0x28
+
+// Registers for use by software
+#define CHESHIRE_SCRATCH_11_REG_OFFSET 0x2c
+
+// Registers for use by software
+#define CHESHIRE_SCRATCH_12_REG_OFFSET 0x30
+
+// Registers for use by software
+#define CHESHIRE_SCRATCH_13_REG_OFFSET 0x34
+
+// Registers for use by software
+#define CHESHIRE_SCRATCH_14_REG_OFFSET 0x38
+
+// Registers for use by software
+#define CHESHIRE_SCRATCH_15_REG_OFFSET 0x3c
+
+// Method to load boot code (connected to input pins)
+#define CHESHIRE_BOOT_MODE_REG_OFFSET 0x40
+#define CHESHIRE_BOOT_MODE_BOOT_MODE_MASK 0x3
+#define CHESHIRE_BOOT_MODE_BOOT_MODE_OFFSET 0
 #define CHESHIRE_BOOT_MODE_BOOT_MODE_FIELD \
-    ((bitfield_field32_t){.mask = CHESHIRE_BOOT_MODE_BOOT_MODE_MASK, \
-                          .index = CHESHIRE_BOOT_MODE_BOOT_MODE_OFFSET})
+  ((bitfield_field32_t) { .mask = CHESHIRE_BOOT_MODE_BOOT_MODE_MASK, .index = CHESHIRE_BOOT_MODE_BOOT_MODE_OFFSET })
+#define CHESHIRE_BOOT_MODE_BOOT_MODE_VALUE_PASSIVE 0x0
+#define CHESHIRE_BOOT_MODE_BOOT_MODE_VALUE_SPI_SDCARD 0x1
+#define CHESHIRE_BOOT_MODE_BOOT_MODE_VALUE_SPI_S25FS512S 0x2
+#define CHESHIRE_BOOT_MODE_BOOT_MODE_VALUE_I2C_24XX1025 0x3
 
-#define CHESHIRE_BOOT_MODE_BOOT_MODE_VALUE_PASSIVE 0x0       /**< Passive boot mode. */
-#define CHESHIRE_BOOT_MODE_BOOT_MODE_VALUE_SPI_SDCARD 0x1    /**< SPI SDCard boot mode. */
-#define CHESHIRE_BOOT_MODE_BOOT_MODE_VALUE_SPI_S25FS512S 0x2 /**< SPI S25FS512S boot mode. */
-#define CHESHIRE_BOOT_MODE_BOOT_MODE_VALUE_I2C_24XX1025 0x3  /**< I2C 24XX1025 boot mode. */
-/** @} */
-
-/** @brief RTC frequency in Hz. */
+// Frequency (Hz) configured for RTC
 #define CHESHIRE_RTC_FREQ_REG_OFFSET 0x44
 
-/** @brief Address of platform ROM. */
+// Address of platform ROM
 #define CHESHIRE_PLATFORM_ROM_REG_OFFSET 0x48
 
-/** @brief Number of internal harts in the system. */
+// Number of internal harts
 #define CHESHIRE_NUM_INT_HARTS_REG_OFFSET 0x4c
 
-/** @name Hardware Features
- *  @brief Bitfield flags specifying available hardware features.
- *  @{
- */
-#define CHESHIRE_HW_FEATURES_REG_OFFSET 0x50   /**< Offset for hardware feature register. */
-#define CHESHIRE_HW_FEATURES_BOOTROM_BIT 0     /**< Boot ROM available. */
-#define CHESHIRE_HW_FEATURES_LLC_BIT 1         /**< LLC available. */
-#define CHESHIRE_HW_FEATURES_UART_BIT 2        /**< UART available. */
-#define CHESHIRE_HW_FEATURES_SPI_HOST_BIT 3    /**< SPI Host available. */
-#define CHESHIRE_HW_FEATURES_I2C_BIT 4         /**< I2C available. */
-#define CHESHIRE_HW_FEATURES_GPIO_BIT 5        /**< GPIO available. */
-#define CHESHIRE_HW_FEATURES_DMA_BIT 6         /**< DMA available. */
-#define CHESHIRE_HW_FEATURES_SERIAL_LINK_BIT 7 /**< Serial link available. */
-#define CHESHIRE_HW_FEATURES_VGA_BIT 8         /**< VGA available. */
-#define CHESHIRE_HW_FEATURES_USB_BIT 9         /**< USB available. */
-#define CHESHIRE_HW_FEATURES_AXIRT_BIT 10      /**< AXI Router available. */
-#define CHESHIRE_HW_FEATURES_CLIC_BIT 11       /**< CLIC available. */
-#define CHESHIRE_HW_FEATURES_IRQ_ROUTER_BIT 12 /**< Interrupt router available. */
-#define CHESHIRE_HW_FEATURES_BUS_ERR_BIT 13    /**< Bus error register available. */
-/** @} */
+// Specifies which hardware features are available
+#define CHESHIRE_HW_FEATURES_REG_OFFSET 0x50
+#define CHESHIRE_HW_FEATURES_BOOTROM_BIT 0
+#define CHESHIRE_HW_FEATURES_LLC_BIT 1
+#define CHESHIRE_HW_FEATURES_UART_BIT 2
+#define CHESHIRE_HW_FEATURES_SPI_HOST_BIT 3
+#define CHESHIRE_HW_FEATURES_I2C_BIT 4
+#define CHESHIRE_HW_FEATURES_GPIO_BIT 5
+#define CHESHIRE_HW_FEATURES_DMA_BIT 6
+#define CHESHIRE_HW_FEATURES_SERIAL_LINK_BIT 7
+#define CHESHIRE_HW_FEATURES_VGA_BIT 8
+#define CHESHIRE_HW_FEATURES_USB_BIT 9
+#define CHESHIRE_HW_FEATURES_AXIRT_BIT 10
+#define CHESHIRE_HW_FEATURES_CLIC_BIT 11
+#define CHESHIRE_HW_FEATURES_IRQ_ROUTER_BIT 12
+#define CHESHIRE_HW_FEATURES_BUS_ERR_BIT 13
 
-/** @brief Total size of LLC in bytes. */
+// Total size of LLC in bytes
 #define CHESHIRE_LLC_SIZE_REG_OFFSET 0x54
 
-/** @name VGA Parameters
- *  @brief Defines bitfield masks and offsets for VGA color channel width.
- *  @{
- */
-#define CHESHIRE_VGA_PARAMS_REG_OFFSET 0x58 /**< Offset for VGA parameters register. */
-
-#define CHESHIRE_VGA_PARAMS_RED_WIDTH_MASK 0xff /**< Mask for red channel width. */
-#define CHESHIRE_VGA_PARAMS_RED_WIDTH_OFFSET 0  /**< Offset for red channel width field. */
+// VGA hardware parameters
+#define CHESHIRE_VGA_PARAMS_REG_OFFSET 0x58
+#define CHESHIRE_VGA_PARAMS_RED_WIDTH_MASK 0xff
+#define CHESHIRE_VGA_PARAMS_RED_WIDTH_OFFSET 0
 #define CHESHIRE_VGA_PARAMS_RED_WIDTH_FIELD \
-    ((bitfield_field32_t){.mask = CHESHIRE_VGA_PARAMS_RED_WIDTH_MASK, \
-                          .index = CHESHIRE_VGA_PARAMS_RED_WIDTH_OFFSET})
-
-#define CHESHIRE_VGA_PARAMS_GREEN_WIDTH_MASK 0xff /**< Mask for green channel width. */
-#define CHESHIRE_VGA_PARAMS_GREEN_WIDTH_OFFSET 8  /**< Offset for green channel width field. */
+  ((bitfield_field32_t) { .mask = CHESHIRE_VGA_PARAMS_RED_WIDTH_MASK, .index = CHESHIRE_VGA_PARAMS_RED_WIDTH_OFFSET })
+#define CHESHIRE_VGA_PARAMS_GREEN_WIDTH_MASK 0xff
+#define CHESHIRE_VGA_PARAMS_GREEN_WIDTH_OFFSET 8
 #define CHESHIRE_VGA_PARAMS_GREEN_WIDTH_FIELD \
-    ((bitfield_field32_t){.mask = CHESHIRE_VGA_PARAMS_GREEN_WIDTH_MASK, \
-                          .index = CHESHIRE_VGA_PARAMS_GREEN_WIDTH_OFFSET})
-
-#define CHESHIRE_VGA_PARAMS_BLUE_WIDTH_MASK 0xff /**< Mask for blue channel width. */
-#define CHESHIRE_VGA_PARAMS_BLUE_WIDTH_OFFSET 16 /**< Offset for blue channel width field. */
+  ((bitfield_field32_t) { .mask = CHESHIRE_VGA_PARAMS_GREEN_WIDTH_MASK, .index = CHESHIRE_VGA_PARAMS_GREEN_WIDTH_OFFSET })
+#define CHESHIRE_VGA_PARAMS_BLUE_WIDTH_MASK 0xff
+#define CHESHIRE_VGA_PARAMS_BLUE_WIDTH_OFFSET 16
 #define CHESHIRE_VGA_PARAMS_BLUE_WIDTH_FIELD \
-    ((bitfield_field32_t){.mask = CHESHIRE_VGA_PARAMS_BLUE_WIDTH_MASK, \
-                          .index = CHESHIRE_VGA_PARAMS_BLUE_WIDTH_OFFSET})
-/** @} */
+  ((bitfield_field32_t) { .mask = CHESHIRE_VGA_PARAMS_BLUE_WIDTH_MASK, .index = CHESHIRE_VGA_PARAMS_BLUE_WIDTH_OFFSET })
+
+// Enable clk gate for peripherals
+#define CHESHIRE_CLK_GATE_EN_PERIPHERALS_REG_OFFSET 0x5c
+#define CHESHIRE_CLK_GATE_EN_PERIPHERALS_CLK_GATE_EN_UART_BIT 0
+#define CHESHIRE_CLK_GATE_EN_PERIPHERALS_CLK_GATE_EN_I2C_BIT 1
+#define CHESHIRE_CLK_GATE_EN_PERIPHERALS_CLK_GATE_EN_SPIH_BIT 2
+#define CHESHIRE_CLK_GATE_EN_PERIPHERALS_CLK_GATE_EN_SLINK_BIT 3
+#define CHESHIRE_CLK_GATE_EN_PERIPHERALS_CLK_GATE_EN_GPIO_BIT 4
+#define CHESHIRE_CLK_GATE_EN_PERIPHERALS_CLK_GATE_EN_VGA_BIT 5
+#define CHESHIRE_CLK_GATE_EN_PERIPHERALS_CLK_GATE_EN_USB_BIT 6
+#define CHESHIRE_CLK_GATE_EN_PERIPHERALS_RESERVED_MASK 0x1ffffff
+#define CHESHIRE_CLK_GATE_EN_PERIPHERALS_RESERVED_OFFSET 7
+#define CHESHIRE_CLK_GATE_EN_PERIPHERALS_RESERVED_FIELD \
+  ((bitfield_field32_t) { .mask = CHESHIRE_CLK_GATE_EN_PERIPHERALS_RESERVED_MASK, .index = CHESHIRE_CLK_GATE_EN_PERIPHERALS_RESERVED_OFFSET })
 
 #ifdef __cplusplus
-} // extern "C"
+}  // extern "C"
 #endif
-
-#endif // _CHESHIRE_REG_DEFS_
+#endif  // _CHESHIRE_REG_DEFS_
 
 /** @} */
 /** @} */

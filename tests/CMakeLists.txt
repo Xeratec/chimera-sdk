@@ -11,9 +11,18 @@ chimera-convolve:
   host/printf,
   host/returnZero,
   host/uartSimple,
+  host/hyperbus,
+  host/peripheralGating
   snitchCluster/matmul,
   snitchCluster/snrt,
-  snitchCluster/simpleOffload
+  snitchCluster/simpleOffload,
+  snitchCluster/hyperbus,
+  snitchCluster/clusterMemory,
+  snitchCluster/offloadAll,
+  snitchCluster/bootAddrConfig,
+  snitchCluster/clusterGating,
+  snitchCluster/memoryIsland,
+  snitchCluster/idma
 ]]
 [[
 chimera-open:
@@ -24,10 +33,17 @@ chimera-open:
   host/returnZero,
   host/uartSimple,
   host/hyperbus,
+  host/peripheralGating,
   snitchCluster/matmul,
   snitchCluster/snrt,
   snitchCluster/simpleOffload,
-  snitchCluster/hyperbus
+  snitchCluster/hyperbus,
+  snitchCluster/clusterMemory,
+  snitchCluster/offloadAll,
+  snitchCluster/bootAddrConfig,
+  snitchCluster/clusterGating,
+  snitchCluster/memoryIsland,
+  snitchCluster/idma
 ]]
 [[
 chimera-host:
@@ -36,7 +52,9 @@ chimera-host:
   host/picolibc,
   host/printf,
   host/returnZero,
-  host/uartSimple
+  host/uartSimple,
+  host/hyperbus,
+  host/peripheralGating
 ]]
 )
 

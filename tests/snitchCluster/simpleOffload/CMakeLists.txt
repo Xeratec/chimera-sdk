@@ -44,7 +44,7 @@ target_compile_options(${TEST_NAME}_host.elf PRIVATE -O2 -ffunction-sections -fd
 if(TEST_MODE STREQUAL "simulation")
     add_test(NAME ${TEST_NAME}
         COMMAND ${SIMULATION_BINARY}
-            +BINARY=${CMAKE_CURRENT_BINARY_DIR}/chimera_unified_${TEST_NAME}.elf
+            +BINARY=${CMAKE_CURRENT_BINARY_DIR}/${TEST_NAME}_unified.elf
             +PRELMODE=${PRELOAD_MODE_INT}
     )
 endif()
