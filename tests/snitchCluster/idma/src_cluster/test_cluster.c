@@ -48,7 +48,7 @@ int32_t testDma(void *args __attribute__((unused))) {
     snrt_init();
 
     // Core 0 allocates the L1 (TCDM) buffers and fills the source.
-    if (snrt_cluster_core_idx() == 0) {
+    if (snrt_is_dm_core()) {
         g_src = (uint32_t *)snrt_l1_alloc(DMA_N * sizeof(uint32_t));
         g_dst = (uint32_t *)snrt_l1_alloc(DMA_N * sizeof(uint32_t));
         for (uint32_t i = 0; i < DMA_N; i++) {
