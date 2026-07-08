@@ -1,6 +1,49 @@
 # SPDX-FileCopyrightText: 2024 ETH Zurich and University of Bologna
 # SPDX-License-Identifier: Apache-2.0
 
+# ---------------------------------------------------------------------------
+# chimera_disasm_flags(<isa> <out_var>)
+#
+# Derive `llvm-objdump --mattr=` flags from a RISC-V ISA string (e.g.
+# `rv32imafd_xdma`). The pulp LLVM toolchain emits no `.riscv.attributes` arch
+# record for the custom `xdma` extension, so llvm-objdump falls back to the
+# base RV32I decoder and prints `<unknown>` for every F/D/xdma instruction.
+# Spelling the features out restores a readable disassembly. Returns empty for
+# a non-LLVM objdump (GNU objdump reads the attributes itself).
+# ---------------------------------------------------------------------------
+function(chimera_disasm_flags ISA OUT)
+    set(_flags "")
+    if(CMAKE_OBJDUMP MATCHES "llvm-objdump")
+        string(REGEX REPLACE "^rv(32|64)" "" _rest "${ISA}")   # drop XLEN prefix
+        string(REPLACE "_" ";" _chunks "${_rest}")             # std ; vendor ; ...
+        list(GET _chunks 0 _std)
+        string(REPLACE "g" "imafd" _std "${_std}")             # g == imafd(+zicsr,zifencei)
+        set(_feats "")
+        string(REGEX MATCHALL "[a-z]" _letters "${_std}")
+        foreach(_l ${_letters})
+            if(NOT _l STREQUAL "i" AND NOT _l STREQUAL "e")    # skip the base
+                list(APPEND _feats "+${_l}")
+            endif()
+        endforeach()
+        list(LENGTH _chunks _n)                                # multichar/vendor exts
+        if(_n GREATER 1)
+            math(EXPR _last "${_n} - 1")
+            foreach(_i RANGE 1 ${_last})
+                list(GET _chunks ${_i} _v)
+                if(_v)
+                    list(APPEND _feats "+${_v}")
+                endif()
+            endforeach()
+        endif()
+        list(REMOVE_DUPLICATES _feats)
+        if(_feats)
+            list(JOIN _feats "," _joined)
+            set(_flags "--mattr=${_joined}")
+        endif()
+    endif()
+    set(${OUT} ${_flags} PARENT_SCOPE)
+endfunction()
+
 #[=======================================================================[.rst:
 .. cmake:command:: add_device_binary(TARGET_NAME)
 
@@ -240,9 +283,10 @@ function(add_device_binary TARGET_NAME)
     # -----------------------------------------------------------------------
     # 4. Debug artifacts: disassembly + section headers + full symbol table
     # -----------------------------------------------------------------------
+    chimera_disasm_flags("${ARG_ISA}" _DISASM_FLAGS)
     add_custom_command(
         OUTPUT  ${TARGET_NAME}.dump ${TARGET_NAME}.sections ${TARGET_NAME}.symbols
-        COMMAND ${CMAKE_OBJDUMP} -S  ${TARGET_NAME}.elf > ${TARGET_NAME}.dump
+        COMMAND ${CMAKE_OBJDUMP} -S  ${_DISASM_FLAGS} ${TARGET_NAME}.elf > ${TARGET_NAME}.dump
         COMMAND ${CMAKE_OBJDUMP} -h  ${TARGET_NAME}.elf > ${TARGET_NAME}.sections
         COMMAND ${CMAKE_NM}      -n  ${TARGET_NAME}.elf > ${TARGET_NAME}.symbols
         DEPENDS ${TARGET_NAME}.elf
@@ -628,9 +672,10 @@ function(add_host_binary TARGET_NAME)
     # -----------------------------------------------------------------------
     # 6. Debug artifacts
     # -----------------------------------------------------------------------
+    chimera_disasm_flags("${ARG_ISA}" _DISASM_FLAGS)
     add_custom_command(
         OUTPUT  ${TARGET_NAME}_host.dump ${TARGET_NAME}_host.sections ${TARGET_NAME}_host.symbols
-        COMMAND ${CMAKE_OBJDUMP} -S ${TARGET_NAME}_host.elf > ${TARGET_NAME}_host.dump
+        COMMAND ${CMAKE_OBJDUMP} -S ${_DISASM_FLAGS} ${TARGET_NAME}_host.elf > ${TARGET_NAME}_host.dump
         COMMAND ${CMAKE_OBJDUMP} -h ${TARGET_NAME}_host.elf > ${TARGET_NAME}_host.sections
         COMMAND ${CMAKE_NM}      -n ${TARGET_NAME}_host.elf > ${TARGET_NAME}_host.symbols
         DEPENDS ${TARGET_NAME}_host.elf
@@ -750,9 +795,12 @@ function(add_host_binary TARGET_NAME)
             VERBATIM
         )
 
+        # Mixed-ISA ELF: llvm-objdump uses one arch (host XLEN); the host ISA
+        # features at least decode F/D. Device (rv32/xdma) code stays partial.
+        chimera_disasm_flags("${ISA_HOST}" _DISASM_FLAGS)
         add_custom_command(
             OUTPUT  ${UNIFIED_ELF}.dump ${UNIFIED_ELF}.sections ${UNIFIED_ELF}.symbols
-            COMMAND ${CMAKE_OBJDUMP} -S ${UNIFIED_ELF}.elf > ${UNIFIED_ELF}.dump
+            COMMAND ${CMAKE_OBJDUMP} -S ${_DISASM_FLAGS} ${UNIFIED_ELF}.elf > ${UNIFIED_ELF}.dump
             COMMAND ${CMAKE_OBJDUMP} -h ${UNIFIED_ELF}.elf > ${UNIFIED_ELF}.sections
             COMMAND ${CMAKE_NM}      -n ${UNIFIED_ELF}.elf > ${UNIFIED_ELF}.symbols
             DEPENDS ${UNIFIED_ELF}.elf
