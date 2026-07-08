@@ -59,8 +59,8 @@ static uint32_t offloadWithBypass(void *fn, uint32_t c, uint32_t bypass) {
 }
 
 int main(void) {
-    setAll_snitchCluster_reset(0);
-    setAll_snitchCluster_clockGating(0);
+    // setAll_snitchCluster_reset(0);
+    // setAll_snitchCluster_clockGating(0);
 
     // 1. Bypass register reset value + writability for every cluster.
     for (uint32_t c = 0; c < _chimera_numClusters; c++) {
