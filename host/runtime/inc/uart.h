@@ -39,7 +39,11 @@
  *  @{
  */
 #ifndef UART_DEFAULT_BAUD_RATE
+#ifdef HARDWARE_BACKEND_RTL
+#define UART_DEFAULT_BAUD_RATE 115200 /**< Default baud rate (bps). */
+#else
 #define UART_DEFAULT_BAUD_RATE 9600 /**< Default baud rate (bps). */
+#endif
 #endif
 
 #ifndef UART_DEFAULT_DATA_BITS

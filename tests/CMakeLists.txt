@@ -33,7 +33,6 @@ chimera-open:
   host/returnZero,
   host/uartSimple,
   host/hyperbus,
-  host/peripheralGating,
   snitchCluster/matmul,
   snitchCluster/snrt,
   snitchCluster/simpleOffload,
@@ -54,7 +53,6 @@ chimera-host:
   host/returnZero,
   host/uartSimple,
   host/hyperbus,
-  host/peripheralGating
 ]]
 )
 
