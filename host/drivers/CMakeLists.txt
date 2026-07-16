@@ -5,7 +5,7 @@
 set(DRIVER_MAPPINGS
     chimera-convolve:cluster,uart_apb,clint32,fll,hyperbus
     chimera-open:cluster,uart_apb,clint32,hyperbus
-    chimera-host:uart_apb,clint32,hyperbus
+    chimera-gen:cluster,uart_apb,clint32,hyperbus
 )
 
 # Call the macro

@@ -2,7 +2,7 @@
 /* SPDX-License-Identifier: Apache-2.0 */
 
 /*
- * Host linker script template for chimera-host (host-only, no cluster devices).
+ * Host linker script template for chimera-open (RV32IMC host).
  *
  * cmake/Chimera.cmake calls configure_file() on this template to produce
  * the actual linker script.  The placeholders below are substituted:
@@ -16,7 +16,7 @@
  *       that advances the LC past all device memory regions so host code
  *       starts immediately after the last device.
  *
- * Memory layout in memisl (ORIGIN = 0x48000000, LENGTH = 256K):
+ * Memory layout in memisl (ORIGIN = 0x48000000, LENGTH = 128K):
  *
  *   0x48000000                  ┌─ .common   (host loads, devices NOLOAD)
  *   0x48000000 + common_size    ├─ [device code/data regions — if any]
@@ -63,7 +63,7 @@ SECTIONS {
     *(.sdata.*)
   } > memisl
 
-  .bss (NOLOAD) : {
+  .bss (NOLOAD) : ALIGN(32) {
     . = ALIGN(32);
     __bss_start = .;
     *(.bss)
@@ -75,7 +75,7 @@ SECTIONS {
   } > memisl
 
   /* Thread Local Storage sections */
-  .tdata : {
+  .tdata : ALIGN(32) {
     . = ALIGN(32);
     __tdata_start = .;
     *(.tdata .tdata.* .gnu.linkonce.td.*)
@@ -83,7 +83,7 @@ SECTIONS {
     __tdata_end = .;
   } > memisl
 
-  .tbss (NOLOAD) : {
+  .tbss (NOLOAD) : ALIGN(32) {
     . = ALIGN(32);
     __tbss_start = .;
     *(.tbss .tbss.* .gnu.linkonce.tb.*)

@@ -37,9 +37,9 @@ Pass/fail is the program's return code (`0` = pass). Build with `make chim-sdk` 
 
 ## Test / target matrix
 
-`Cv` = chimera-convolve · `Op` = chimera-open · `Ho` = chimera-host.
+`Cv` = chimera-convolve · `Op` = chimera-open · `Ge` = chimera-gen.
 
-| Test | Cv | Op | Ho |
+| Test | Cv | Op | Ge |
 |------|:--:|:--:|:--:|
 | host/returnZero | ✓ | ✓ | ✓ |
 | host/printf | ✓ | ✓ | ✓ |

@@ -16,7 +16,7 @@ variables:
 build_sdk:
   parallel:
     matrix:
-      - TARGET: [chimera-open, chimera-host, chimera-convolve]
+      - TARGET: [chimera-open, chimera-gen, chimera-convolve]
   script:
     - !reference [.setup, script]
     - $CMAKE -DTARGET_PLATFORM=$TARGET -DTOOLCHAIN_DIR=$LLVM_INSTALL_PATH -B build
@@ -27,7 +27,7 @@ test:
     matrix:
       - TARGET: [chimera-open]
         TEST: [test_host_returnZero, test_snitchCluster_simpleOffload]
-      - TARGET: [chimera-host]
+      - TARGET: [chimera-gen]
         TEST: [test_host_returnZero]
   script:
     - !reference [.setup, script]

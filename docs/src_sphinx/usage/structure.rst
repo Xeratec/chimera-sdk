@@ -42,7 +42,7 @@ The SDK is organised into the following main folders:
     │  │  ├─ shared/inc/
     │  │  ├─ host/
     │  │  └─ devices/snitch_cluster/
-    │  └─ chimera-host/                 # Host-only target (no cluster devices)
+    │  └─ chimera-gen/                  # Host-only target; regs/addrmap from RDL + reggen
     │     └─ host/
     ├─ tests/                           # Test applications
     │  ├─ host/                         # Host-only tests (no cluster)

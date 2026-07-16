@@ -42,7 +42,7 @@ OPTIONS:
     -g, --gvsoc-path PATH      Path to GVSoC binary (default: $DEFAULT_GVSOC_PATH)
     -G, --gdb-path PATH        Path to GDB binary for ASIC backend (default: $DEFAULT_GDB_PATH)
     -t, --target TARGET        Target platform to build and test (default: $DEFAULT_TARGET)
-                               Available targets: chimera-open, chimera-host, chimera-convolve
+                               Available targets: chimera-open, chimera-gen, chimera-convolve
     -c, --cmake PATH           Path to CMake binary (default: $DEFAULT_CMAKE)
     -T, --toolchain-dir PATH   Path to LLVM toolchain directory (default: $DEFAULT_TOOLCHAIN_DIR)
     -P, --picolibc-dir PATH    Path to picolibc directory (default: $DEFAULT_PICOLIBC_DIR)

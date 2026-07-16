@@ -1,0 +1,76 @@
+// SPDX-FileCopyrightText: 2025 ETH Zurich and University of Bologna
+// SPDX-License-Identifier: Apache-2.0
+//
+// Generated-backed shim: the SoC-control register layout comes from the
+// SystemRDL single source of truth (peakrdl c-header -> .generated/
+// chimera_soc_regs.h, `make rdl`), resolved via CHIMERA_RDL_GEN_DIR. The flat
+// CHIMERA_*_REG_OFFSET / _BIT names that the SDK drivers use are derived here
+// from the generated struct via offsetof, so they can never drift from the RTL.
+
+#ifndef _CHIMERA_REG_DEFS_
+#define _CHIMERA_REG_DEFS_
+
+#include <stddef.h>
+
+#include "chimera_soc_regs.h"
+
+#define CHIMERA_PARAM_REG_WIDTH 32
+
+#define CHIMERA_SNITCH_BOOT_ADDR_REG_OFFSET \
+    offsetof(chimera_soc_regs_t, snitch_boot_addr)
+#define CHIMERA_SNITCH_CONFIGURABLE_BOOT_ADDR_REG_OFFSET \
+    offsetof(chimera_soc_regs_t, snitch_configurable_boot_addr)
+#define CHIMERA_SNITCH_INTR_HANDLER_ADDR_REG_OFFSET \
+    offsetof(chimera_soc_regs_t, snitch_intr_handler_addr)
+
+#define CHIMERA_SNITCH_CLUSTER_0_RETURN_REG_OFFSET offsetof(chimera_soc_regs_t, snitch_cluster_return[0])
+#define CHIMERA_SNITCH_CLUSTER_1_RETURN_REG_OFFSET offsetof(chimera_soc_regs_t, snitch_cluster_return[1])
+#define CHIMERA_SNITCH_CLUSTER_2_RETURN_REG_OFFSET offsetof(chimera_soc_regs_t, snitch_cluster_return[2])
+#define CHIMERA_SNITCH_CLUSTER_3_RETURN_REG_OFFSET offsetof(chimera_soc_regs_t, snitch_cluster_return[3])
+#define CHIMERA_SNITCH_CLUSTER_4_RETURN_REG_OFFSET offsetof(chimera_soc_regs_t, snitch_cluster_return[4])
+
+#define CHIMERA_RESET_CLUSTER_0_REG_OFFSET offsetof(chimera_soc_regs_t, reset_cluster[0])
+#define CHIMERA_RESET_CLUSTER_1_REG_OFFSET offsetof(chimera_soc_regs_t, reset_cluster[1])
+#define CHIMERA_RESET_CLUSTER_2_REG_OFFSET offsetof(chimera_soc_regs_t, reset_cluster[2])
+#define CHIMERA_RESET_CLUSTER_3_REG_OFFSET offsetof(chimera_soc_regs_t, reset_cluster[3])
+#define CHIMERA_RESET_CLUSTER_4_REG_OFFSET offsetof(chimera_soc_regs_t, reset_cluster[4])
+#define CHIMERA_RESET_CLUSTER_0_RESET_CLUSTER_0_BIT CHIMERA_SOC_REGS__RESET_CLUSTER_T__VALUE_bp
+#define CHIMERA_RESET_CLUSTER_1_RESET_CLUSTER_1_BIT CHIMERA_SOC_REGS__RESET_CLUSTER_T__VALUE_bp
+#define CHIMERA_RESET_CLUSTER_2_RESET_CLUSTER_2_BIT CHIMERA_SOC_REGS__RESET_CLUSTER_T__VALUE_bp
+#define CHIMERA_RESET_CLUSTER_3_RESET_CLUSTER_3_BIT CHIMERA_SOC_REGS__RESET_CLUSTER_T__VALUE_bp
+#define CHIMERA_RESET_CLUSTER_4_RESET_CLUSTER_4_BIT CHIMERA_SOC_REGS__RESET_CLUSTER_T__VALUE_bp
+
+#define CHIMERA_CLUSTER_0_CLK_GATE_EN_REG_OFFSET offsetof(chimera_soc_regs_t, cluster_clk_gate_en[0])
+#define CHIMERA_CLUSTER_1_CLK_GATE_EN_REG_OFFSET offsetof(chimera_soc_regs_t, cluster_clk_gate_en[1])
+#define CHIMERA_CLUSTER_2_CLK_GATE_EN_REG_OFFSET offsetof(chimera_soc_regs_t, cluster_clk_gate_en[2])
+#define CHIMERA_CLUSTER_3_CLK_GATE_EN_REG_OFFSET offsetof(chimera_soc_regs_t, cluster_clk_gate_en[3])
+#define CHIMERA_CLUSTER_4_CLK_GATE_EN_REG_OFFSET offsetof(chimera_soc_regs_t, cluster_clk_gate_en[4])
+#define CHIMERA_CLUSTER_0_CLK_GATE_EN_CLUSTER_0_CLK_GATE_EN_BIT CHIMERA_SOC_REGS__CLUSTER_CLK_GATE_EN_T__VALUE_bp
+#define CHIMERA_CLUSTER_1_CLK_GATE_EN_CLUSTER_1_CLK_GATE_EN_BIT CHIMERA_SOC_REGS__CLUSTER_CLK_GATE_EN_T__VALUE_bp
+#define CHIMERA_CLUSTER_2_CLK_GATE_EN_CLUSTER_2_CLK_GATE_EN_BIT CHIMERA_SOC_REGS__CLUSTER_CLK_GATE_EN_T__VALUE_bp
+#define CHIMERA_CLUSTER_3_CLK_GATE_EN_CLUSTER_3_CLK_GATE_EN_BIT CHIMERA_SOC_REGS__CLUSTER_CLK_GATE_EN_T__VALUE_bp
+#define CHIMERA_CLUSTER_4_CLK_GATE_EN_CLUSTER_4_CLK_GATE_EN_BIT CHIMERA_SOC_REGS__CLUSTER_CLK_GATE_EN_T__VALUE_bp
+
+#define CHIMERA_WIDE_MEM_CLUSTER_0_BYPASS_REG_OFFSET offsetof(chimera_soc_regs_t, wide_mem_cluster_bypass[0])
+#define CHIMERA_WIDE_MEM_CLUSTER_1_BYPASS_REG_OFFSET offsetof(chimera_soc_regs_t, wide_mem_cluster_bypass[1])
+#define CHIMERA_WIDE_MEM_CLUSTER_2_BYPASS_REG_OFFSET offsetof(chimera_soc_regs_t, wide_mem_cluster_bypass[2])
+#define CHIMERA_WIDE_MEM_CLUSTER_3_BYPASS_REG_OFFSET offsetof(chimera_soc_regs_t, wide_mem_cluster_bypass[3])
+#define CHIMERA_WIDE_MEM_CLUSTER_4_BYPASS_REG_OFFSET offsetof(chimera_soc_regs_t, wide_mem_cluster_bypass[4])
+#define CHIMERA_WIDE_MEM_CLUSTER_0_BYPASS_WIDE_MEM_CLUSTER_0_BYPASS_BIT CHIMERA_SOC_REGS__WIDE_MEM_CLUSTER_BYPASS_T__VALUE_bp
+#define CHIMERA_WIDE_MEM_CLUSTER_1_BYPASS_WIDE_MEM_CLUSTER_1_BYPASS_BIT CHIMERA_SOC_REGS__WIDE_MEM_CLUSTER_BYPASS_T__VALUE_bp
+#define CHIMERA_WIDE_MEM_CLUSTER_2_BYPASS_WIDE_MEM_CLUSTER_2_BYPASS_BIT CHIMERA_SOC_REGS__WIDE_MEM_CLUSTER_BYPASS_T__VALUE_bp
+#define CHIMERA_WIDE_MEM_CLUSTER_3_BYPASS_WIDE_MEM_CLUSTER_3_BYPASS_BIT CHIMERA_SOC_REGS__WIDE_MEM_CLUSTER_BYPASS_T__VALUE_bp
+#define CHIMERA_WIDE_MEM_CLUSTER_4_BYPASS_WIDE_MEM_CLUSTER_4_BYPASS_BIT CHIMERA_SOC_REGS__WIDE_MEM_CLUSTER_BYPASS_T__VALUE_bp
+
+#define CHIMERA_CLUSTER_0_BUSY_REG_OFFSET offsetof(chimera_soc_regs_t, cluster_busy[0])
+#define CHIMERA_CLUSTER_1_BUSY_REG_OFFSET offsetof(chimera_soc_regs_t, cluster_busy[1])
+#define CHIMERA_CLUSTER_2_BUSY_REG_OFFSET offsetof(chimera_soc_regs_t, cluster_busy[2])
+#define CHIMERA_CLUSTER_3_BUSY_REG_OFFSET offsetof(chimera_soc_regs_t, cluster_busy[3])
+#define CHIMERA_CLUSTER_4_BUSY_REG_OFFSET offsetof(chimera_soc_regs_t, cluster_busy[4])
+#define CHIMERA_CLUSTER_0_BUSY_CLUSTER_0_BUSY_BIT CHIMERA_SOC_REGS__CLUSTER_BUSY_T__VALUE_bp
+#define CHIMERA_CLUSTER_1_BUSY_CLUSTER_1_BUSY_BIT CHIMERA_SOC_REGS__CLUSTER_BUSY_T__VALUE_bp
+#define CHIMERA_CLUSTER_2_BUSY_CLUSTER_2_BUSY_BIT CHIMERA_SOC_REGS__CLUSTER_BUSY_T__VALUE_bp
+#define CHIMERA_CLUSTER_3_BUSY_CLUSTER_3_BUSY_BIT CHIMERA_SOC_REGS__CLUSTER_BUSY_T__VALUE_bp
+#define CHIMERA_CLUSTER_4_BUSY_CLUSTER_4_BUSY_BIT CHIMERA_SOC_REGS__CLUSTER_BUSY_T__VALUE_bp
+
+#endif // _CHIMERA_REG_DEFS_

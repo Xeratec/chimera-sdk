@@ -45,14 +45,24 @@ chimera-open:
   snitchCluster/idma
 ]]
 [[
-chimera-host:
-  chimera-host,
+chimera-gen:
+  chimera-gen,
   host/alloc,
   host/picolibc,
   host/printf,
   host/returnZero,
   host/uartSimple,
   host/hyperbus,
+  snitchCluster/matmul,
+  snitchCluster/snrt,
+  snitchCluster/simpleOffload,
+  snitchCluster/hyperbus,
+  snitchCluster/clusterMemory,
+  snitchCluster/offloadAll,
+  snitchCluster/bootAddrConfig,
+  snitchCluster/clusterGating,
+  snitchCluster/memoryIsland,
+  snitchCluster/idma
 ]]
 )
 

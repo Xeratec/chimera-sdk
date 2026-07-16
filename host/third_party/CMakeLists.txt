@@ -5,7 +5,7 @@
 set(THIRDPARTY_MAPPINGS
     chimera-convolve:opentitan
     chimera-open:opentitan
-    chimera-host:opentitan
+    chimera-gen:opentitan
 )
 
 # Call the macro

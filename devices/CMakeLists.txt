@@ -7,7 +7,7 @@
 set(DEVICE_MAPPINGS
     chimera-convolve:snitch_cluster
     chimera-open:snitch_cluster
-    chimera-host:
+    chimera-gen:snitch_cluster
 )
 
 # Call the macro

@@ -2,7 +2,7 @@
 # SPDX-License-Identifier: Apache-2.0
 
 set(AVAILABLE_TARGETS
-  "chimera-host"
+  "chimera-gen"
   "chimera-open"
   "chimera-convolve"
   CACHE STRING "Available Targets"
@@ -16,8 +16,9 @@ endif()
 
 message(STATUS "[CHIMERA-SDK] TARGET_PLATFORM       : ${TARGET_PLATFORM}")
 
-if(TARGET_PLATFORM STREQUAL "chimera-host")
-  add_subdirectory(chimera-host)
+if(TARGET_PLATFORM STREQUAL "chimera-gen")
+  add_compile_definitions(TARGET_PLATFORM_CHIMERA_GEN)
+  add_subdirectory(chimera-gen)
 endif()
 
 if(TARGET_PLATFORM STREQUAL "chimera-open")

@@ -109,7 +109,7 @@ The SDK supports multiple hardware targets.  Available targets are defined in
 ``targets/CMakeLists.txt`` under ``AVAILABLE_TARGETS``:
 
 - ``chimera-convolve`` – target for the CONVOLVE project (RV64IMC host + RV32IMAFD cluster)
-- ``chimera-host`` – host-only target (no cluster devices)
+- ``chimera-gen`` – host-only target (no cluster devices); address map / registers sourced from the generated RDL + reggen headers
 - ``chimera-open`` – default target with multiple Snitch clusters
 
 Testing

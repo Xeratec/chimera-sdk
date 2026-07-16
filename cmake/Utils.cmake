@@ -16,7 +16,7 @@
       set(MAPPINGS
           chimera-convolve:snitch_cluster
           chimera-open:snitch_cluster
-          chimera-host:
+          chimera-gen:
       )
       add_chimera_subdirectories(${TARGET_PLATFORM} "Device" "${MAPPINGS}")
 

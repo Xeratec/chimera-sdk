@@ -4,7 +4,7 @@
 // Ported from chimera-top sw/tests/testPeripheralsGating.c (Lorenzo Leone,
 // Viviane Potocnik), made self-checking. Verifies the Cheshire peripheral
 // clock-gating register can be driven: reset value, set the low bits, clear
-// them. Host-only (no clusters) so it runs on both chimera-open and chimera-host.
+// them. Host-only (no clusters) so it runs on both chimera-open and chimera-gen.
 
 // Include Standard Libraries
 #include <stdint.h>
