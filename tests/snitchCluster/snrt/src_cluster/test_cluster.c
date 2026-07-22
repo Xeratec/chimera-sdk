@@ -81,6 +81,19 @@ void clusterDefaultHandler() {
  */
 int32_t testReturn(void *args __attribute__((unused))) {
 
+    // All cores are woken through the *shared* CHIMERA_SNITCH_INTR_HANDLER_ADDR
+    // register and dispatch via clusterInterruptHandler. The write below repoints
+    // that shared register to clusterDefaultHandler (a park loop). Because the
+    // host wakes the cores with staggered software interrupts, an early-woken
+    // core could repoint the register before a later core has been dispatched —
+    // that later core would then vector straight into the park loop and never
+    // run (seen as the DMA/print core hanging, so no output).
+    //
+    // Synchronise the whole cluster on the HW barrier first: every core has then
+    // left the wake-dispatch path before any core repoints the handler. This is
+    // the bare cluster-barrier CSR and is safe before snrt_init().
+    snrt_cluster_hw_barrier();
+
     *reg32((void *)SOC_CTRL_BASE, CHIMERA_SNITCH_INTR_HANDLER_ADDR_REG_OFFSET) =
         (uint32_t)clusterDefaultHandler;
 
